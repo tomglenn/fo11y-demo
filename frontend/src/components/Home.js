@@ -4,14 +4,15 @@ import GameCard from './GameCard';
 
 function Home() {
     const [games, setGames] = useState([]);
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
-        axios.get('https://fo11y-demo-steam-service-g3z7u.ondigitalocean.app/featured')
+        axios.get(`${backendUrl}/featured`)
             .then(response => {
                 setGames(response.data);
             })
             .catch(error => console.error('Error fetching data:', error));
-    }, []);
+    }, [backendUrl]);
 
     return (
         <div>

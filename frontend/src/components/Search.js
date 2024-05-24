@@ -10,6 +10,7 @@ function Search() {
     const [searchTerm, setSearchTerm] = useState('');
     const [games, setGames] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
         // Fetch games from API
@@ -21,7 +22,7 @@ function Search() {
                 console.info(`time=${time} user_id="${userUUID}" action=search query="${searchTerm}"`);
 
                 setIsLoading(true);
-                const response = await axios.get(`http://localhost:1337/games?q=${encodeURIComponent(searchTerm)}`);
+                const response = await axios.get(`${backendUrl}/games?q=${encodeURIComponent(searchTerm)}`);
                 setIsLoading(false);
                 setGames(response.data);
             } catch (error) {
@@ -36,7 +37,7 @@ function Search() {
 
         // Cancel any outstanding fetches when the component unmounts
         return () => debouncedFetch.cancel();
-    }, [searchTerm]);
+    }, [searchTerm, backendUrl]);
 
     return (
         <div>

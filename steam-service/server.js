@@ -1,16 +1,11 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
+const cors = require('cors');
 const PORT = process.env.PORT || 1337;
 
+app.use(cors());
 app.use(express.json());
-
-// Enable CORS for all routes if needed (optional, but usually necessary for API services)
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  next();
-});
 
 // Cache games from steam
 let games; // Cache for steam game app ids (populated at start up)

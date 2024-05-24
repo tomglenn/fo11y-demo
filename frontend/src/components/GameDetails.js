@@ -5,15 +5,16 @@ import axios from 'axios';
 function GameDetails() {
     const { appId } = useParams();
     const [game, setGame] = useState({});
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
         // Fetch game details from API
-        axios.get(`http://localhost:1337/games/${appId}`)
+        axios.get(`${backendUrl}/games/${appId}`)
             .then(response => {
                 setGame(response.data);
             })
             .catch(error => console.error('Error fetching game details:', error));
-    }, [appId]);
+    }, [appId, backendUrl]);
 
     return (
         <div>
